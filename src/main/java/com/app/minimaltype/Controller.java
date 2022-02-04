@@ -23,11 +23,12 @@ public class Controller {
     }
     */
 
+
     @FXML
     private TextFlow bottomText;
 
     @FXML
-    private TextFlow bottomText1;
+    private TextFlow topText;
 
     @FXML
     private TextField textInput;
@@ -45,9 +46,40 @@ public class Controller {
 //            System.out.println("yessir");
 //        }
 
+
+    }
+
+    public void initialize() {
+        displayWords();
         textInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue);
+            System.out.println(newValue.charAt(newValue.length()-1));
         });
+    }
+
+    public WordGroup displayWords() {
+        String family = "Hiragino Sans GB W3";
+        double size = 16;
+        Color color = Color.WHITE;
+
+        WordGroup words = new WordGroup();
+
+        for(int i = 0; i < 10; i++) {
+            Text text1 = new Text(words.getWordGroup().get(i).getWord() + " ");
+            text1.setFont(Font.font(family, size));
+            text1.setFill(color);
+            topText.getChildren().addAll(text1);
+            words.setTextGroup(text1);
+        }
+
+        for(int i = 10; i < 20; i++) {
+            Text text1 = new Text(words.getWordGroup().get(i).getWord() + " ");
+            text1.setFont(Font.font(family, size));
+            text1.setFill(color);
+            bottomText.getChildren().addAll(text1);
+            words.setTextGroup(text1);
+        }
+
+        return words;
     }
 
 

@@ -14,17 +14,17 @@
             <Font name="Hiragino Sans GB W3" size="33.0" />
          </font>
       </Text>
-      <TextField fx:id="textInput" layoutX="223.0" layoutY="271.0" onAction="#textField" prefHeight="26.0" prefWidth="289.0" style="-fx-background-color: transparent;">
+      <TextField fx:id="textInput" layoutX="223.0" layoutY="358.0" onAction="#textField" prefHeight="26.0" prefWidth="289.0" style="-fx-background-color: transparent;">
          <font>
             <Font size="19.0" />
          </font>
       </TextField>
-      <Button layoutX="618.0" layoutY="355.0" mnemonicParsing="false" onAction="#btnDark" style="-fx-background-color: transparent;" text="light/dark">
+      <Button layoutX="635.0" layoutY="369.0" minHeight="17.0" mnemonicParsing="false" onAction="#btnDark" prefHeight="33.0" prefWidth="78.0" style="-fx-background-color: transparent;" text="light/dark" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font size="14.0" />
          </font>
       </Button>
-      <TextFlow fx:id="bottomText" layoutX="112.0" layoutY="194.0" prefHeight="43.0" prefWidth="511.0" />
-      <TextFlow fx:id="bottomText1" layoutX="112.0" layoutY="151.0" prefHeight="43.0" prefWidth="511.0" />
+      <TextFlow fx:id="topText" layoutX="83.0" layoutY="191.0" prefHeight="43.0" prefWidth="610.0" />
+      <TextFlow fx:id="bottomText" layoutX="83.0" layoutY="230.0" prefHeight="43.0" prefWidth="610.0" />
    </children>
 </AnchorPane>
