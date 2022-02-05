@@ -10,19 +10,11 @@ import javafx.scene.text.TextFlow;
 
 public class Controller {
 
- /*
-    @FXML
-    void btnDark(ActionEvent event) {
-        String family = "Helvetica";
-        double size = 50;
-        Text text1 = new Text("Hello ");
-        text1.setFont(Font.font(family, size));
-        text1.setFill(Color.RED);
-        topText.getChildren().addAll(text1);
-
-    }
-    */
-
+    static int wordCount = 0;
+    static int charCount = 0;
+    static int errorCount = 0;
+    static boolean firstRun = true;
+    static boolean startOfWord = false;
 
     @FXML
     private TextFlow bottomText;
@@ -50,11 +42,38 @@ public class Controller {
     }
 
     public void initialize() {
-        displayWords();
+        WordGroup words = displayWords();
+
         textInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue.charAt(newValue.length()-1));
+
+            String currentWord = words.getWordGroup().get(getWordCount()).getWord();
+            char lastLetter = newValue.charAt(newValue.length() - 1);
+            Text currentText = words.getTextGroup(getWordCount());
+            int wordLength = currentWord.length();
+
+                if (lastLetter == ' ') {
+                    incrementWordCount();
+                    resetCharCount();
+                    charCount = -1;
+                    startOfWord = true;
+                } else if (!firstRun) {
+                    incrementCharCount();
+                }
+//            System.out.println(getCharCount());
+//            System.out.println(getWordCount());
+//            System.out.println(currentWord);
+//            System.out.println(lastLetter);
+//            System.out.println(currentWord.charAt(getCharCount()));
+
+                if (charCount < wordLength - 1 && lastLetter != ' ' && lastLetter != currentWord.charAt(getCharCount())) {
+                    currentText.setFill(Color.RED);
+                }
+
+                firstRun = false;
         });
     }
+
+
 
     public WordGroup displayWords() {
         String family = "Hiragino Sans GB W3";
@@ -80,6 +99,31 @@ public class Controller {
         }
 
         return words;
+    }
+
+
+    public void incrementWordCount() {
+        wordCount++;
+    }
+
+    public void incrementCharCount() {
+        charCount++;
+    }
+
+    public int getWordCount() {
+        return wordCount;
+    }
+
+    public int getCharCount() {
+        return charCount;
+    }
+
+    public void resetWordCount() {
+        wordCount = 0;
+    }
+
+    public void resetCharCount() {
+        charCount = 0;
     }
 
 
