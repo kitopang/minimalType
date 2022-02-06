@@ -15,6 +15,8 @@ public class Controller {
     static int errorCount = 0;
     static boolean firstRun = true;
     static boolean startOfWord = false;
+    static boolean firstRowRun = true;
+    static WordGroup wordGroup;
 
     @FXML
     private TextFlow bottomText;
@@ -42,13 +44,12 @@ public class Controller {
     }
 
     public void initialize() {
-        WordGroup words = displayWords();
+        wordGroup = displayWords();
 
         textInput.textProperty().addListener((observable, oldValue, newValue) -> {
-
-            String currentWord = words.getWordGroup().get(getWordCount()).getWord();
             char lastLetter = newValue.charAt(newValue.length() - 1);
-            Text currentText = words.getTextGroup(getWordCount());
+            Text currentText = wordGroup.getTextGroup(getWordCount());
+            String currentWord = wordGroup.getWordGroup().get(getWordCount()).getWord();
             int wordLength = currentWord.length();
 
                 if (lastLetter == ' ') {
@@ -56,20 +57,29 @@ public class Controller {
                     resetCharCount();
                     charCount = -1;
                     startOfWord = true;
+                    if (getWordCount() == 10 ) {
+                        resetWordCount();
+                        wordGroup = updateWords(wordGroup);
+                    }
+
+
                 } else if (!firstRun) {
                     incrementCharCount();
                 }
-//            System.out.println(getCharCount());
-//            System.out.println(getWordCount());
-//            System.out.println(currentWord);
-//            System.out.println(lastLetter);
-//            System.out.println(currentWord.charAt(getCharCount()));
 
+
+                System.out.println(currentWord);
                 if (charCount < wordLength - 1 && lastLetter != ' ' && lastLetter != currentWord.charAt(getCharCount())) {
                     currentText.setFill(Color.RED);
                 }
 
+                else if (lastLetter != ' ' ) {
+                    wordGroup.getTextGroup(getWordCount()).setFill(Color.WHITE);
+                }
+
                 firstRun = false;
+
+
         });
     }
 
@@ -78,7 +88,7 @@ public class Controller {
     public WordGroup displayWords() {
         String family = "Hiragino Sans GB W3";
         double size = 16;
-        Color color = Color.WHITE;
+        Color color = Color.GRAY;
 
         WordGroup words = new WordGroup();
 
@@ -86,6 +96,33 @@ public class Controller {
             Text text1 = new Text(words.getWordGroup().get(i).getWord() + " ");
             text1.setFont(Font.font(family, size));
             text1.setFill(color);
+            topText.getChildren().addAll(text1);
+            words.setTextGroup(text1);
+        }
+
+        for(int i = 10; i < 20; i++) {
+            Text text1 = new Text(words.getWordGroup().get(i).getWord() + " ");
+            text1.setFont(Font.font(family, size));
+            text1.setFill(color);
+            bottomText.getChildren().addAll(text1);
+            words.setTextGroup(text1);
+        }
+
+        return words;
+    }
+
+    public WordGroup updateWords(WordGroup oldWords) {
+        String family = "Hiragino Sans GB W3";
+        double size = 16;
+        Color color = Color.GRAY;
+
+        WordGroup words = new WordGroup(oldWords);
+        System.out.println(words);
+        topText.getChildren().clear();
+        bottomText.getChildren().clear();
+
+        for(int i = 0; i < 10; i++) {
+            Text text1 = oldWords.getTextGroup(i + 10);
             topText.getChildren().addAll(text1);
             words.setTextGroup(text1);
         }

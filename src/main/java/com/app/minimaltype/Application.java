@@ -20,7 +20,7 @@ public class Application extends javafx.application.Application implements Initi
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("appView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
         stage.show();
