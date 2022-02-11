@@ -17,11 +17,13 @@ public class Controller {
 
     static int wordCount = 0;
     static int charCount = 0;
-    static int correctWordCount = 0;
+    static int correctCharCount = 0;
     static boolean firstRun = true;
     static boolean startOfWord = false;
     static WordGroup wordGroup;
     boolean timerCanceled = false;
+    static boolean wordIncorrect;
+    static int charCount2 = 0;
 
     @FXML
     private TextFlow bottomText;
@@ -47,6 +49,7 @@ public class Controller {
     void btnReset(ActionEvent event) {
         textInput.textProperty().removeListener(textListner);
         timerCanceled = true;
+        timerText.setText("");
         runProgram();
     }
 
@@ -56,7 +59,7 @@ public class Controller {
 
     public void runProgram() {
         wordCount = 0;
-        correctWordCount = 0;
+        correctCharCount = 0;
         charCount = 0;
         firstRun = true;
         startOfWord = false;
@@ -85,7 +88,7 @@ public class Controller {
                         if(i< 0) {
                             timer.cancel();
                             textInput.textProperty().removeListener(textListner);
-                            int wpm = correctWordCount * 2;
+                            int wpm = 2 * (correctCharCount / 5) ;
                             timerText.setText(String.valueOf(wpm) + " WPM");
                         }
                         else if(timerCanceled) {
@@ -105,13 +108,14 @@ public class Controller {
                 resetCharCount();
                 charCount = -1;
                 startOfWord = true;
+                wordIncorrect = false;
                 if (getWordCount() == 10) {
                     resetWordCount();
                     wordGroup = updateWords(wordGroup);
                 }
 
                 if(currentText.getFill() == Color.WHITE) {
-                    correctWordCount++;
+                   // correctCharCount += currentWord.length();
                 }
 
             } else if (!firstRun) {
@@ -120,10 +124,14 @@ public class Controller {
 
             if (charCount < wordLength - 1 && lastLetter != ' ' && lastLetter != currentWord.charAt(getCharCount())) {
                 currentText.setFill(Color.RED);
-            } else if (lastLetter != ' ') {
-                wordGroup.getTextGroup(getWordCount()).setFill(Color.WHITE);
+                wordIncorrect = true;
             }
-            System.out.println(correctWordCount);
+            else if (lastLetter != ' ' && !wordIncorrect) {
+                wordGroup.getTextGroup(getWordCount()).setFill(Color.WHITE);
+                correctCharCount++;
+
+            }
+            System.out.println(correctCharCount);
             firstRun = false;
         };
 
