@@ -7,7 +7,6 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="735.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.minimaltype.Controller">
    <children>
       <TextField fx:id="textInput" layoutX="243.0" layoutY="378.0" onAction="#textField" prefHeight="26.0" prefWidth="289.0" style="-fx-background-color: transparent;">
@@ -17,20 +16,20 @@
       </TextField>
       <TextFlow fx:id="topText" layoutX="90.0" layoutY="191.0" prefHeight="43.0" prefWidth="629.0" />
       <TextFlow fx:id="bottomText" layoutX="90.0" layoutY="223.0" prefHeight="43.0" prefWidth="629.0" />
-      <Button layoutX="626.0" layoutY="381.0" minHeight="17.0" mnemonicParsing="false" onAction="#btnDark" prefHeight="33.0" prefWidth="109.0" style="-fx-background-color: transparent;" text="light/dark" textFill="#2196f3">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
       <Text fill="#2196f3" layoutX="53.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="minimalType">
          <font>
             <Font name="Hiragino Sans GB W3" size="33.0" />
          </font>
       </Text>
-      <Button layoutX="664.0" layoutY="348.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="↺" textFill="#2196f3">
+      <Button layoutX="665.0" layoutY="375.0" mnemonicParsing="false" onAction="#btnReset" style="-fx-background-color: transparent;" text="↺" textFill="#2196f3">
          <font>
             <Font size="22.0" />
          </font>
       </Button>
+      <Text fx:id="timerText" fill="GREY" layoutX="25.0" layoutY="402.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30">
+         <font>
+            <Font name="Hiragino Sans W3" size="16.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
